@@ -8,6 +8,7 @@ import { LoggerInterceptor } from '@infrastructure/logger/logger.interceptor';
 import { LoggerService } from '@infrastructure/logger/services/logger.service';
 import { ConfigurationService } from '@infrastructure/configuration/services/configuration.service';
 import { GlobalExceptionFilter } from '@helpers/filter/global-exception.filter';
+import { PrismaService } from '@infrastructure/database/services/prisma.service';
 
 async function bootstrap() {
   const loggerService = new LoggerService();
@@ -23,6 +24,10 @@ async function bootstrap() {
     },
   );
   const config = app.get(ConfigurationService);
+
+  // Prisma
+  const dbService: PrismaService = app.get(PrismaService);
+  dbService.enableShutdownHooks(app);
 
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new GlobalExceptionFilter(httpAdapter, loggerService));
