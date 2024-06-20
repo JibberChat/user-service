@@ -1,14 +1,14 @@
-import { NestFactory, HttpAdapterHost } from '@nestjs/core';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
-import { ConfigService } from '@nestjs/config';
+import { NestFactory, HttpAdapterHost } from "@nestjs/core";
+import { Transport, MicroserviceOptions } from "@nestjs/microservices";
+import { ConfigService } from "@nestjs/config";
 
-import { AppModule } from './app.module';
+import { AppModule } from "./app.module";
 
-import { LoggerInterceptor } from '@infrastructure/logger/logger.interceptor';
-import { LoggerService } from '@infrastructure/logger/services/logger.service';
-import { ConfigurationService } from '@infrastructure/configuration/services/configuration.service';
-import { GlobalExceptionFilter } from '@helpers/filter/global-exception.filter';
-import { PrismaService } from '@infrastructure/database/services/prisma.service';
+import { LoggerInterceptor } from "@infrastructure/logger/logger.interceptor";
+import { LoggerService } from "@infrastructure/logger/services/logger.service";
+import { ConfigurationService } from "@infrastructure/configuration/services/configuration.service";
+import { GlobalExceptionFilter } from "@helpers/filter/global-exception.filter";
+import { PrismaService } from "@infrastructure/database/services/prisma.service";
 
 async function bootstrap() {
   const loggerService = new LoggerService();
@@ -18,7 +18,7 @@ async function bootstrap() {
     {
       transport: Transport.TCP,
       options: {
-        host: 'localhost',
+        host: "localhost",
         port: new ConfigurationService(new ConfigService()).appConfig.port,
       },
     },
@@ -34,6 +34,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggerInterceptor());
 
   await app.listen();
-  console.log('Microservice is running on port: ' + config.appConfig.port);
+  console.log("Microservice is running on port: " + config.appConfig.port);
 }
 bootstrap();
