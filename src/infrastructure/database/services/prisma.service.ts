@@ -1,32 +1,19 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
-import {
-  INestMicroservice,
-  Injectable,
-  OnModuleDestroy,
-  OnModuleInit,
-  Scope,
-} from '@nestjs/common';
+import { INestMicroservice, Injectable, OnModuleDestroy, OnModuleInit, Scope } from "@nestjs/common";
 
-import { LoggerService } from '@infrastructure/logger/services/logger.service';
+import { LoggerService } from "@infrastructure/logger/services/logger.service";
 
 @Injectable({ scope: Scope.DEFAULT })
-export class PrismaService
-  extends PrismaClient
-  implements OnModuleInit, OnModuleDestroy
-{
+export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new LoggerService();
 
   async onModuleInit() {
     try {
-      this.logger.log('Connecting to the database', this.constructor.name);
+      this.logger.log("Connecting to the database", this.constructor.name);
       await this.$connect();
     } catch (error) {
-      this.logger.error(
-        'Error connecting to the database',
-        String(error),
-        this.constructor.name,
-      );
+      this.logger.error("Error connecting to the database", String(error), this.constructor.name);
       throw error;
     }
   }
@@ -36,8 +23,8 @@ export class PrismaService
   }
 
   async enableShutdownHooks(app: INestMicroservice) {
-    process.on('beforeExit', async () => {
-      this.logger.log('Disconnecting from the database', this.constructor.name);
+    process.on("beforeExit", async () => {
+      this.logger.log("Disconnecting from the database", this.constructor.name);
       await app.close();
     });
   }
