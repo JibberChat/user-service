@@ -13,6 +13,11 @@ export class UserController {
     return await this.userService.getMe(userId);
   }
 
+  @MessagePattern({ cmd: "getUsers" })
+  async getUsers(userIds: string[]): Promise<User[]> {
+    return this.userService.getUsers(userIds);
+  }
+
   @MessagePattern({ cmd: "getUserProfile" })
   async getUserProfile(userId: string): Promise<User> {
     return this.userService.getUserProfile(userId);

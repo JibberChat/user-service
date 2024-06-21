@@ -15,6 +15,17 @@ export class UserService {
     };
   }
 
+  async getUsers(userIds: string[]): Promise<User[]> {
+    return [
+      {
+        id: "1",
+        name: "test",
+        email: "",
+        createdAt: new Date(),
+      },
+    ];
+  }
+
   async getUserProfile(userId: string): Promise<User> {
     return {
       id: userId,
