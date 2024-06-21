@@ -15,7 +15,8 @@ export class UserService {
     };
   }
 
-  async getUsers(userIds: string[]): Promise<User[]> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getUsers(_userIds: string[]): Promise<User[]> {
     return [
       {
         id: "1",
