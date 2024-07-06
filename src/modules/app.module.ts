@@ -4,9 +4,7 @@ import { ConfigurationModule } from "@infrastructure/configuration/configuration
 import { DatabaseModule } from "@infrastructure/database/database.module";
 import { LoggerModule } from "@infrastructure/logger/logger.module";
 
-import { UserModule } from "@modules/user.module";
-
-import { UserModule } from "@modules/user.module";
+import { UserModule } from "@modules/user/user.module";
 
 @Module({
   imports: [ConfigurationModule, UserModule, DatabaseModule, LoggerModule],
