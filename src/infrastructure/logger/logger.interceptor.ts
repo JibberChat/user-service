@@ -9,7 +9,7 @@ import { LoggerService } from "./services/logger.service";
 
 @Injectable()
 export class LoggerInterceptor implements NestInterceptor {
-  private loggerSerivce: LoggerService;
+  private readonly loggerSerivce = new LoggerService();
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<void> {
     const now = Date.now();
