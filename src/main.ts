@@ -25,9 +25,8 @@ async function bootstrap() {
   const dbService: PrismaService = app.get(PrismaService);
   dbService.enableShutdownHooks(app);
 
-  const { httpAdapter } = app.get(HttpAdapterHost);
-  app.useGlobalFilters(new GlobalExceptionFilter(httpAdapter, loggerService));
-  app.useGlobalInterceptors(new LoggerInterceptor());
+  app.useGlobalFilters(new GlobalExceptionFilter(loggerService));
+  app.useGlobalInterceptors(new LoggerInterceptor(loggerService));
 
   await app.listen();
   loggerService.info("Microservice is running on port: " + configService.appConfig.port, "Bootstrap");
