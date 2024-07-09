@@ -23,6 +23,11 @@ export class UserController {
     return this.userService.getUserProfile(userId);
   }
 
+  @MessagePattern({ cmd: "createUser" })
+  async createUser(name: string, email: string): Promise<User> {
+    return this.userService.createUser(name, email);
+  }
+
   @MessagePattern({ cmd: "updateUser" })
   async updateUser(userId: string, name: string, email: string): Promise<User> {
     return this.userService.updateUser(userId, name, email);

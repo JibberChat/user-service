@@ -36,6 +36,15 @@ export class UserService {
     };
   }
 
+  async createUser(name: string, email: string): Promise<User> {
+    return {
+      id: "1",
+      name: name,
+      email: email,
+      createdAt: new Date(),
+    };
+  }
+
   async updateUser(userId: string, name: string, email: string): Promise<User> {
     return {
       id: userId,
