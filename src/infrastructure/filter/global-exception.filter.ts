@@ -2,7 +2,7 @@ import { red } from "chalk";
 import { Observable, throwError } from "rxjs";
 import { inspect } from "util";
 
-// import { ArgumentsHost, Catch, HttpException, HttpStatus } from "@nestjs/common";
+import { Catch, HttpException, HttpStatus } from "@nestjs/common";
 import { BaseRpcExceptionFilter, RpcException } from "@nestjs/microservices";
 
 import { LoggerService } from "@infrastructure/logger/services/logger.service";
