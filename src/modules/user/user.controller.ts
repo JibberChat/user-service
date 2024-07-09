@@ -9,8 +9,8 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @MessagePattern({ cmd: "getMe" })
-  async getMe(userId: string): Promise<User> {
-    return await this.userService.getMe(userId);
+  async getMe(data: { userId: string }): Promise<User> {
+    return await this.userService.getMe(data.userId);
   }
 
   @MessagePattern({ cmd: "getUsers" })
@@ -19,17 +19,17 @@ export class UserController {
   }
 
   @MessagePattern({ cmd: "getUserProfile" })
-  async getUserProfile(userId: string): Promise<User> {
-    return this.userService.getUserProfile(userId);
+  async getUserProfile(data: { userId: string }): Promise<User> {
+    return this.userService.getUserProfile(data.userId);
   }
 
   @MessagePattern({ cmd: "createUser" })
-  async createUser(name: string, email: string): Promise<User> {
-    return this.userService.createUser(name, email);
+  async createUser(data: { clerkId: string; name: string; email: string }): Promise<User> {
+    return this.userService.createUser(data);
   }
 
   @MessagePattern({ cmd: "updateUser" })
-  async updateUser(userId: string, name: string, email: string): Promise<User> {
-    return this.userService.updateUser(userId, name, email);
+  async updateUser(data: { userId: string; name: string; email: string }): Promise<User> {
+    return this.userService.updateUser(data);
   }
 }
