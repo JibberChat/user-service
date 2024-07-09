@@ -2,7 +2,7 @@ import { red } from "chalk";
 import { Observable, throwError } from "rxjs";
 import { inspect } from "util";
 
-import { ArgumentsHost, Catch, HttpException, HttpStatus } from "@nestjs/common";
+// import { ArgumentsHost, Catch, HttpException, HttpStatus } from "@nestjs/common";
 import { BaseRpcExceptionFilter, RpcException } from "@nestjs/microservices";
 
 import { LoggerService } from "@infrastructure/logger/services/logger.service";
@@ -45,7 +45,8 @@ export class GlobalExceptionFilter extends BaseRpcExceptionFilter {
     );
   }
 
-  catch(exception: unknown, host: ArgumentsHost): Observable<void> {
+  // eslint-disable-next-line no-use-before-define
+  catch(exception: unknown): Observable<void> {
     // const ctx = host.switchToRpc();
 
     if (exception instanceof Error) {
