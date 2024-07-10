@@ -12,7 +12,7 @@ export class UserController {
 
   @MessagePattern({ cmd: "getMe" })
   async getMe(data: { userId: string }): Promise<User> {
-    return await this.userService.getMe(data.userId);
+    return await this.userService.getUserProfile(data.userId);
   }
 
   @MessagePattern({ cmd: "getUsers" })

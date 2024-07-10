@@ -13,11 +13,11 @@ import { prismaCatchNotFound } from "@helpers/prisma/catch-not-found";
 export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getMe(userId: string): Promise<User> {
-    return await this.prismaService.user
-      .findUniqueOrThrow({ where: { id: userId }, select: { id: true, name: true, email: true, createdAt: true } })
-      .catch(prismaCatchNotFound(MESSAGES.USER_NOT_FOUND));
-  }
+  // async getMe(userId: string): Promise<User> {
+  //   return await this.prismaService.user
+  //     .findUniqueOrThrow({ where: { id: userId }, select: { id: true, name: true, email: true, createdAt: true } })
+  //     .catch(prismaCatchNotFound(MESSAGES.USER_NOT_FOUND));
+  // }
 
   async getUsers(userIds: string[]): Promise<User[]> {
     return await this.prismaService.user.findMany({
