@@ -14,8 +14,8 @@ export class UserController {
   }
 
   @MessagePattern({ cmd: "getUsers" })
-  async getUsers(userIds: string[]): Promise<User[]> {
-    return this.userService.getUsers(userIds);
+  async getUsers(data: { userIds: string[] }): Promise<User[]> {
+    return this.userService.getUsers(data.userIds);
   }
 
   @MessagePattern({ cmd: "getUserProfile" })

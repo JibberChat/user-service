@@ -1,5 +1,3 @@
-import { randomUUID } from "crypto";
-
 import { ConflictException, Injectable } from "@nestjs/common";
 
 import { User } from "./user.interface";
@@ -47,8 +45,7 @@ export class UserService {
 
     return await this.prismaService.user.create({
       data: {
-        // id: data.clerkId,
-        id: randomUUID(),
+        id: data.clerkId,
         name: data.name,
         email: data.email,
       },
