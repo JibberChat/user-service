@@ -1,6 +1,8 @@
 import { ConflictException, Injectable } from "@nestjs/common";
 
-import { User } from "./user.interface";
+import { CreateUserDto } from "./dtos/create-user.dto";
+import { UpdateUserDto } from "./dtos/update-user.dto";
+import { User } from "./interfaces/user.interface";
 
 import { PrismaService } from "@infrastructure/database/services/prisma.service";
 
@@ -39,7 +41,16 @@ export class UserService {
       .catch(prismaCatchNotFound(MESSAGES.USER_NOT_FOUND));
   }
 
-  async createUser(data: { clerkId: string; name: string; email: string }): Promise<User> {
+  async getUserByEmail(userEmail: string): Promise<User> {
+    return await this.prismaService.user
+      .findUniqueOrThrow({
+        where: { email: userEmail },
+        select: { id: true, name: true, email: true, createdAt: true },
+      })
+      .catch(prismaCatchNotFound(MESSAGES.USER_NOT_FOUND));
+  }
+
+  async createUser(data: CreateUserDto): Promise<User> {
     const userExist = await this.prismaService.user.findUnique({ where: { id: data.clerkId } });
     if (userExist) throw new ConflictException(MESSAGES.USER_ALREADY_EXIST);
 
@@ -58,7 +69,7 @@ export class UserService {
     });
   }
 
-  async updateUser(data: { userId: string; name: string; email: string }): Promise<User> {
+  async updateUser(data: UpdateUserDto): Promise<User> {
     await this.prismaService.user
       .findUniqueOrThrow({ where: { id: data.userId } })
       .catch(prismaCatchNotFound(MESSAGES.USER_NOT_FOUND));
@@ -67,7 +78,6 @@ export class UserService {
       where: { id: data.userId },
       data: {
         name: data.name,
-        email: data.email,
       },
       select: {
         id: true,
