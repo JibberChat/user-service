@@ -1,6 +1,10 @@
 import { Controller } from "@nestjs/common";
-import { MessagePattern } from "@nestjs/microservices";
+import { MessagePattern, Payload } from "@nestjs/microservices";
 
+import { GetMeDto } from "./dtos/get-me.dto";
+import { GetUsersDto } from "./dtos/get-users.dto";
+import { GetUserProfileDto } from "./dtos/get-user-profile.dto";
+import { UpdateUserDto } from "./dtos/update-user.dto";
 import { User } from "./user.interface";
 import { UserService } from "./user.service";
 
@@ -9,22 +13,22 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @MessagePattern({ cmd: "getMe" })
-  async getMe(userId: string): Promise<User> {
-    return await this.userService.getMe(userId);
+  async getMe(@Payload() data: GetMeDto): Promise<User> {
+    return await this.userService.getMe(data.userId);
   }
 
   @MessagePattern({ cmd: "getUsers" })
-  async getUsers(userIds: string[]): Promise<User[]> {
-    return this.userService.getUsers(userIds);
+  async getUsers(@Payload() data: GetUsersDto): Promise<User[]> {
+    return this.userService.getUsers(data.userIds);
   }
 
   @MessagePattern({ cmd: "getUserProfile" })
-  async getUserProfile(userId: string): Promise<User> {
-    return this.userService.getUserProfile(userId);
+  async getUserProfile(@Payload() data: GetUserProfileDto): Promise<User> {
+    return this.userService.getUserProfile(data.userId);
   }
 
   @MessagePattern({ cmd: "updateUser" })
-  async updateUser(userId: string, name: string, email: string): Promise<User> {
-    return this.userService.updateUser(userId, name, email);
+  async updateUser(@Payload() data: UpdateUserDto): Promise<User> {
+    return this.userService.updateUser(data.userId, data.name, data.email);
   }
 }
