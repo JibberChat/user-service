@@ -1,4 +1,3 @@
 export class GetMeDto {
-    userId: string;
-  }
-  
+  userId: string;
+}

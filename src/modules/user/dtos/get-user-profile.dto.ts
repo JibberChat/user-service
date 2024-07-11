@@ -1,4 +1,3 @@
 export class GetUserProfileDto {
-    userId: string;
-  }
-  
+  userId: string;
+}

@@ -1,5 +1,5 @@
 import { Controller } from "@nestjs/common";
-import { MessagePattern, Payload } from "@nestjs/microservices";
+import { MessagePattern } from "@nestjs/microservices";
 
 import { CreateUserDto } from "./dtos/create-user.dto";
 import { UpdateUserDto } from "./dtos/update-user.dto";
